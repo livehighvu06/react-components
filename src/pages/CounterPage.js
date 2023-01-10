@@ -3,30 +3,29 @@ import Button from "../components/Button";
 import Panel from "../components/Panel";
 
 const reducer = (state, action) => {
-  if (action.type === "increment") {
-    return {
-      ...state,
-      count: state.count + 1,
-    };
-  }
-  if (action.type === "decrement") {
-    return {
-      ...state,
-      count: state.count - 1,
-    };
-  }
-  if (action.type === "change-value") {
-    console.log(action.payload);
-    return {
-      ...state,
-      valueToAdd: action.payload,
-    };
-  }
-  if (action.type === "submit-value") {
-    return {
-      count: state.valueToAdd + state.count,
-      valueToAdd: 0,
-    };
+  switch (action.type) {
+    case "increment":
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+    case "decrement":
+      return {
+        ...state,
+        count: state.count - 1,
+      };
+    case "change-value":
+      return {
+        ...state,
+        valueToAdd: action.payload,
+      };
+    case "submit-value":
+      return {
+        count: state.valueToAdd + state.count,
+        valueToAdd: 0,
+      };
+    default:
+      throw new Error("UNEXPECTED ACTION TYPE:" + action.type);
   }
 };
 
